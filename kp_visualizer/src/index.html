@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+  <title>KP Visualizer</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+  <link
+    rel="stylesheet"
+    href="https://www.w3schools.com/lib/w3-theme-black.css"
+  />
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css?family=Roboto"
+  />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+  />
+  <link rel="stylesheet" href="basic.css" />
+
+  <style>
+    html,
+    body,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      font-family: "Roboto", sans-serif;
+    }
+    .w3-sidebar {
+      z-index: 3;
+      width: 250px;
+      top: 43px;
+      bottom: 0;
+      height: inherit;
+    }
+  </style>
+  <body>
+    <!-- Navbar -->
+    <div class="w3-top">
+      <div class="w3-bar w3-theme w3-top w3-left-align w3-large">
+        <a
+          class="w3-bar-item w3-button w3-right w3-hide-large w3-hover-white w3-large w3-theme-l1"
+          href="javascript:void(0)"
+          onclick="w3_open()"
+          ><i class="fa fa-bars"></i
+        ></a>
+        <a href="index_2.html" class="w3-bar-item w3-button w3-theme-l1"
+          >KP Visualizer</a
+        >
+      </div>
+    </div>
+
+    <!-- csv file-->
+    <script src="https://cdn.rawgit.com/mholt/PapaParse/2f1eb8c4/papaparse.min.js"></script>
+    <form name="Post">
+      <legend>Keyphrase Visualizer</legend>
+      <fieldset>
+        <p>Select evaluation CSV file:</p>
+        <input id="csv" name="csv" type="file" />
+
+        <label>
+          Index:
+          <input type="text" id="index" name="index" autocomplete="off" />
+        </label>
+        <input type="button" id="prev" onclick="prev_val()" value="Previous" />
+        <input type="button" id="next" onclick="next_val()" value="Next" />
+
+        <label
+          ><input type="checkbox" id="tr" value="tr_outputs" /> TextRank
+        </label>
+
+        <label
+          ><input type="checkbox" id="tf_idf" value="tr_outputs" /> TFIDF</label
+        >
+
+        <label
+          ><input type="checkbox" id="nawl" value="nawl_outputs" /> nawl
+        </label>
+        <label
+          ><input type="checkbox" id="awl" value="nacl_outputs" /> awl
+        </label>
+
+        <label
+          ><input type="checkbox" id="tsl" value="tsl_outputs" /> tsl
+        </label>
+        <label
+          ><input type="checkbox" id="ngsl" value="ngsl_outputs" /> ngsl
+        </label>
+
+        <br />
+      </fieldset>
+    </form>
+    <!-- Sidebar -->
+
+    <!-- Overlay effect when opening sidebar on small screens -->
+    <div
+      class="w3-overlay w3-hide-large"
+      onclick="w3_close()"
+      style="cursor:pointer"
+      title="close side menu"
+      id="myOverlay"
+    ></div>
+
+    <!-- Main content: shift it to the right by 250 pixels when the sidebar is visible -->
+    <div class="w3-main">
+      <div class="w3-row w3-padding-32">
+        <div class="w3-container">
+          <h1 class="w3-text-teal">Post</h1>
+          <p><label id="post"></label></p>
+        </div>
+        <div class="w3-third w3-container"></div>
+      </div>
+
+      <div class="w3-row">
+        <div class="w3-container">
+          <h1 class="w3-text-teal">Threads</h1>
+          <p><label id="thread"> </label></p>
+        </div>
+        <div class="w3-third w3-container"></div>
+      </div>
+
+      <div class="w3-row w3-padding-32">
+        <div class="w3-container">
+          <h1 class="w3-text-teal">Outputs</h1>
+          <p><label id="outputs"></label></p>
+        </div>
+      </div>
+
+      <footer id="myFooter">
+        <div class="w3-container w3-theme-l2 w3-padding-32"></div>
+
+        <div class="w3-container w3-theme-l1"></div>
+      </footer>
+
+      <!-- END MAIN -->
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.es6.min.js"></script>
+
+    <script src="read.js"></script>
+
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+      integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+      integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+      crossorigin="anonymous"
+    ></script>
+
+    <script>
+      // Get the Sidebar
+      var mySidebar = document.getElementById("mySidebar");
+
+      // Get the DIV with overlay effect
+      var overlayBg = document.getElementById("myOverlay");
+
+      // Toggle between showing and hiding the sidebar, and add overlay effect
+      function w3_open() {
+        if (mySidebar.style.display === "block") {
+          mySidebar.style.display = "none";
+          overlayBg.style.display = "none";
+        } else {
+          mySidebar.style.display = "block";
+          overlayBg.style.display = "block";
+        }
+      }
+
+      // Close the sidebar with the close button
+      function w3_close() {
+        mySidebar.style.display = "none";
+        overlayBg.style.display = "none";
+      }
+    </script>
+  </body>
+</html>

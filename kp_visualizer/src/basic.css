@@ -1,0 +1,103 @@
+td,
+th {
+  font-family: monospace;
+  padding: 4px;
+  background-color: #ccc;
+}
+
+label {
+  vertical-align: top;
+}
+
+#main {
+  border: 1px dotted blue;
+  padding: 6px;
+  background-color: #ccc;
+  margin-right: 50%;
+}
+
+#items_table {
+  border: 1px dotted blue;
+  padding: 6px;
+  margin-top: 12px;
+  margin-right: 50%;
+}
+
+#items_table h3 {
+  font-size: 18px;
+  margin-top: 0px;
+  font-family: sans-serif;
+}
+/* mark {
+  background: orange;
+  color: black;
+} */
+
+mark.textRank {
+  padding: 0;
+  background-color: rgb(255, 255, 133);
+}
+mark.tf_idf {
+  padding: 0;
+  background-color: rgb(101, 207, 105);
+}
+mark.nawl {
+  padding: 0;
+  background-color: rgb(255, 163, 163);
+}
+
+mark.awl {
+  padding: 0;
+  background-color: rgb(255, 163, 33);
+}
+
+mark.tsl {
+  padding: 0;
+  background-color: #33cccc;
+}
+
+mark.ngsl {
+  padding: 0;
+  background-color: red;
+}
+
+/* Pen-specific styles */
+* {
+  box-sizing: border-box;
+}
+body {
+  font-size: 1em;
+  font-family: sans-serif;
+  line-height: 150%;
+  text-shadow: 0 2px 2p black;
+}
+
+section {
+  color: #fff;
+  text-align: center;
+}
+
+h1 {
+  font-size: 1.75rem;
+  margin: 0 0 0.75rem 0;
+}
+
+/* Pattern styles */
+.container {
+  display: table;
+  width: 100%;
+}
+
+.left-half {
+  background-color: gray;
+  position: absolute;
+  left: 0px;
+  width: 50%;
+}
+
+.right-half {
+  background-color: #b6701e;
+  position: absolute;
+  right: 0px;
+  width: 50%;
+}

@@ -7,6 +7,8 @@ const { VueLoaderPlugin } = require("vue-loader");
 const { version } = require("./package.json");
 
 const config = {
+  devtool: "cheap-module-source-map",
+
   mode: process.env.NODE_ENV,
   context: __dirname + "/src",
   entry: {
@@ -14,6 +16,7 @@ const config = {
     "popup/popup": "./popup/popup.js",
     "tab/tab": "./tab/tab.js",
     "options/options": "./options/options.js",
+    print: "./print.js",
   },
   output: {
     path: __dirname + "/dist",
