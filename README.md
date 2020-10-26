@@ -10,7 +10,8 @@ This visual analytic tool significantly improved interpretability and debugging 
 
 
 ## Sample Outputs
-
+![GitHub Logo](/images/logo.png)
+Format: ![Alt Text](url)
 
 
 ## Features
