@@ -10,7 +10,7 @@ This visual analytic tool significantly improved interpretability and debugging 
 
 
 ## Sample Outputs
-![GitHub Logo](/picture/picture.png)
+![GitHub Logo](kp_visualizer/picture/picture.png)
 Format: ![Alt Text](url)
 
 
